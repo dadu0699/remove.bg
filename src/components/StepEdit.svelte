@@ -24,34 +24,56 @@
   }
 </script>
 
-<two-up class="border-2 border-dashed border-gray-300 p-2 shadow-2xl">
-  <img
-    src={$originalImage}
-    alt="Original uploaded by user"
-    class="aspect-square h-[500px] max-h-[500px] w-full object-contain"
-    height={200}
-    width={200}
-  />
-
-  {#if processingImage}
-    <div class="flex flex-col items-center justify-center">
-      <p class="mt-4 text-center">Processing image...</p>
-    </div>
-  {:else}
-    <img
-      src={$modifiedImage}
-      alt="Without background uploaded by user"
-      class="aspect-square h-[500px] max-h-[500px] w-full object-contain"
-      height={200}
-      width={200}
-    />
-  {/if}
-</two-up>
-
-<a
-  download
-  href={$modifiedImage}
-  class="mt-10 block w-full rounded-full bg-blue-600 px-4 py-2 text-center text-xl font-bold text-white hover:bg-blue-700"
+<div
+  class="relative flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-2 shadow-2xl"
 >
-  Download image without background
-</a>
+  <two-up>
+    <img
+      src={$originalImage}
+      alt="Original uploaded by user"
+      class="aspect-video h-96 w-full object-contain"
+      height={300}
+      width={300}
+    />
+
+    {#if processingImage}
+      <img
+        src={$originalImage}
+        alt="Original uploaded by user with filter applied"
+        class="aspect-video h-96 w-full object-contain blur-sm grayscale filter"
+        height={300}
+        width={300}
+      />
+    {:else}
+      <img
+        src={$modifiedImage}
+        alt="Without background uploaded by user"
+        class="aspect-video h-96 max-h-96 w-full object-contain"
+        height={300}
+        width={300}
+      />
+    {/if}
+  </two-up>
+
+  {#if !processingImage}
+    <div class="absolute right-0 top-0 flex flex-col p-2.5">
+      <a
+        class="inline-flex items-center rounded-full bg-gray-500 p-2.5 text-center text-sm font-medium text-white hover:bg-gray-700"
+        href={$modifiedImage || $originalImage}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          class="h-4 w-4 fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          stroke="currentColor"
+          fill="none"
+        >
+          <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+        </svg>
+        <span class="sr-only">Download image without background</span>
+      </a>
+    </div>
+  {/if}
+</div>

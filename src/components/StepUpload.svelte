@@ -47,24 +47,18 @@
 
 <form
   id="dropzone"
-  class="flex aspect-video h-[520px] w-full flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 shadow-2xl"
+  class="flex aspect-video h-[404px] w-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-gray-400 shadow-2xl"
   action="https://api.cloudinary.com/v1_1/dzchmybac/image/upload"
 >
   {#if $imageStatus === ImageStatus.READY}
     <button
-      class="pointer-events-none rounded-full bg-blue-600 px-8 py-4 text-xl font-bold text-white"
+      class="pointer-events-none rounded-xl bg-blue-800 px-8 py-4 text-xl font-semibold text-white"
     >
-      Upload image
+      <span class="relative">Start from a photo</span>
     </button>
-    <strong class="mt-4 text-lg text-gray-800">or drop a file</strong>
+
+    <strong class="text-lg text-gray-800">or drop a file</strong>
   {:else if $imageStatus === ImageStatus.UPLOADING}
-    <strong class="mt-4 text-lg text-gray-800"> Uploading...</strong>
+    <strong class="text-lg text-gray-800"> Uploading...</strong>
   {/if}
 </form>
-
-<button
-  class="mt-10 block w-full rounded-full bg-blue-600 px-4 py-2 text-center text-xl font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-  disabled
->
-  Download image without background
-</button>

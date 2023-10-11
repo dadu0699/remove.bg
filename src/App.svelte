@@ -6,8 +6,10 @@
   import StepUpload from './components/StepUpload.svelte';
 </script>
 
-<div class="m-auto grid h-screen w-full max-w-xl grid-cols-1 place-content-center p-4">
-  <header class="flex justify-center py-10">
+<div
+  class="container m-auto grid min-h-screen w-full max-w-xl scroll-px-5 grid-cols-1 place-content-center gap-10 overflow-hidden px-5 py-12"
+>
+  <header class="flex justify-center">
     <h1 class="text-3xl font-bold tracking-tighter text-blue-900">
       Remove<span class="text-blue-600">bg</span>
     </h1>
@@ -21,13 +23,10 @@
     {/if}
   </main>
 
-  <footer class="flex items-center justify-center gap-x-2 pt-10 font-semibold">
+  <footer class="flex items-center justify-center gap-x-2 font-semibold">
     Made with
     <a href="https://cloudinary.com/" target="_blank" rel="noopener noreferrer">
       <CloudinaryLogo />
     </a>
   </footer>
 </div>
-
-<style>
-</style>
