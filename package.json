@@ -1,5 +1,5 @@
 {
-  "name": "remove.bg",
+  "name": "removebg-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "code:format": "prettier --write .",
+    "code:format": "prettier --write --plugin prettier-plugin-svelte .",
     "code:lint": "eslint . --ext .js,.ts,.svelte",
     "code:lint:fix": "eslint --fix . --ext .js,.ts,.svelte"
   },
