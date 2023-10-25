@@ -1,11 +1,12 @@
 <script lang="ts">
   import 'two-up-element';
 
-  import { modifiedImage, originalImage } from '../store';
+  import { modifiedImage, originalImage } from '@/store';
 
   let intervalId: number;
   let processingImage = true;
   let tries = 0;
+  let success = false;
 
   $: {
     if (processingImage) {
@@ -13,10 +14,18 @@
       intervalId = setInterval(() => {
         tries++;
 
+        if (tries > 10) {
+          clearInterval(intervalId);
+          processingImage = false;
+          success = false;
+          return;
+        }
+
         const img = new Image();
         img.src = $modifiedImage;
         img.onload = () => {
           processingImage = false;
+          success = true;
           clearInterval(intervalId);
         };
       }, 500);
@@ -25,7 +34,7 @@
 </script>
 
 <div
-  class="relative flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-2 shadow-2xl"
+  class="relative box-border flex h-[425px] items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-2 shadow-2xl"
 >
   <two-up>
     <img
@@ -36,7 +45,7 @@
       width={300}
     />
 
-    {#if processingImage}
+    {#if processingImage || !success}
       <img
         src={$originalImage}
         alt="Original uploaded by user with filter applied"
@@ -48,17 +57,17 @@
       <img
         src={$modifiedImage}
         alt="Without background uploaded by user"
-        class="aspect-video h-96 max-h-96 w-full object-contain"
+        class="aspect-video h-96 w-full object-contain"
         height={300}
         width={300}
       />
     {/if}
   </two-up>
 
-  {#if !processingImage}
+  {#if !processingImage && success}
     <div class="absolute right-0 top-0 flex flex-col p-2.5">
       <a
-        class="inline-flex items-center rounded-full bg-gray-500 p-2.5 text-center text-sm font-medium text-white hover:bg-gray-700"
+        class="inline-flex items-center rounded-full bg-blue-800 p-2.5 text-center text-sm font-medium text-white hover:bg-blue-700"
         href={$modifiedImage || $originalImage}
         rel="noopener noreferrer"
         target="_blank"

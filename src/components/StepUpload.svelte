@@ -6,11 +6,12 @@
   import Dropzone from 'dropzone';
   import 'dropzone/dist/dropzone.css';
 
-  import { imageStatus, modifiedImage, originalImage } from '../store';
-  import { ImageStatus, type CloudinaryResponse } from '../types.d';
+  import { CLOUDINARY_API_KEY, CLOUDINARY_CLOUDNAME } from '@/consts';
+  import { imageStatus, modifiedImage, originalImage } from '@/store';
+  import { ImageStatus, type CloudinaryResponse } from '@/types.d';
 
   const cloudinary = new Cloudinary({
-    cloud: { cloudName: 'dzchmybac' },
+    cloud: { cloudName: CLOUDINARY_CLOUDNAME },
     url: { secure: true },
   });
 
@@ -26,7 +27,7 @@
 
       formData.append('upload_preset', 'ukqsp4dy');
       formData.append('timestamp', String(Date.now() / 1000));
-      formData.append('api_key', '');
+      formData.append('api_key', CLOUDINARY_API_KEY);
     });
 
     dropzone.on('success', (file, response) => {
@@ -47,14 +48,14 @@
 
 <form
   id="dropzone"
-  class="flex aspect-video h-[404px] w-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-gray-400 shadow-2xl"
-  action="https://api.cloudinary.com/v1_1/dzchmybac/image/upload"
+  class="box-border flex aspect-video h-[425px] w-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-gray-400 p-2 shadow-2xl"
+  action={`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUDNAME}/image/upload`}
 >
   {#if $imageStatus === ImageStatus.READY}
     <button
       class="pointer-events-none rounded-xl bg-blue-800 px-8 py-4 text-xl font-semibold text-white"
     >
-      <span class="relative">Start from a photo</span>
+      Start from a photo
     </button>
 
     <strong class="text-lg text-gray-800">or drop a file</strong>
