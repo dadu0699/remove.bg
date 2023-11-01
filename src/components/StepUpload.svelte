@@ -6,7 +6,7 @@
   import Dropzone from 'dropzone';
   import 'dropzone/dist/dropzone.css';
 
-  import { CLOUDINARY_API_KEY, CLOUDINARY_CLOUDNAME } from '@/consts';
+  import { CLOUDINARY_API_KEY, CLOUDINARY_CLOUDNAME, CLOUDINARY_UPLOAD_PRESET } from '@/consts';
   import { imageStatus, modifiedImage, originalImage } from '@/store';
   import { ImageStatus, type CloudinaryResponse } from '@/types.d';
 
@@ -25,7 +25,7 @@
     dropzone.on('sending', (file, xhr, formData) => {
       imageStatus.set(ImageStatus.UPLOADING);
 
-      formData.append('upload_preset', 'ukqsp4dy');
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
       formData.append('timestamp', String(Date.now() / 1000));
       formData.append('api_key', CLOUDINARY_API_KEY);
     });
