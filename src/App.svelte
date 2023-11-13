@@ -3,7 +3,19 @@
   import StepEdit from '@/components/StepEdit.svelte';
   import StepUpload from '@/components/StepUpload.svelte';
   import { imageStatus } from '@/store';
-  import { ImageStatus } from '@/types.d';
+  import { ImageStatus, type Notification } from '@/types.d';
+  import Toast from './components/Toast.svelte';
+
+  let notification = { status: '', message: '', color: '', show: false };
+  const showNotification = async ({ status = '', message = '', color = '' }: Notification) => {
+    notification.show = true;
+    notification.status = status;
+    notification.message = message;
+    notification.color = color;
+
+    await new Promise((resolve) => setTimeout(resolve, 3500));
+    notification.show = false;
+  };
 </script>
 
 <div
@@ -19,9 +31,13 @@
     {#if $imageStatus === ImageStatus.READY || $imageStatus === ImageStatus.UPLOADING}
       <StepUpload />
     {:else if $imageStatus === ImageStatus.DONE}
-      <StepEdit />
+      <StepEdit {showNotification} />
     {/if}
   </main>
+
+  {#if notification.show}
+    <Toast status={notification.status} message={notification.message} color={notification.color} />
+  {/if}
 
   <footer class="flex items-center justify-center gap-x-2 font-semibold">
     Made with
