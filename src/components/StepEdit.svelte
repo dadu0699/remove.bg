@@ -3,7 +3,9 @@
 
   import { modifiedImage, originalImage } from '@/store';
   import Loader from './Loader.svelte';
+  import type { Notification } from '@/types';
 
+  export let showNotification: ({ status, message, color }: Notification) => Promise<void>;
   let intervalId: number;
   let processingImage = true;
   let tries = 0;
@@ -19,6 +21,10 @@
           clearInterval(intervalId);
           processingImage = false;
           success = false;
+          showNotification({
+            message: 'Something went wrong. Please try again later.',
+            color: 'bg-red-600',
+          });
           return;
         }
 

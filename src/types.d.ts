@@ -27,3 +27,9 @@ export enum ImageStatus {
   UPLOADING,
   DONE,
 }
+
+export interface Notification {
+  status?: string;
+  message?: string;
+  color?: string;
+}
