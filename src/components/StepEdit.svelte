@@ -2,6 +2,7 @@
   import 'two-up-element';
 
   import { modifiedImage, originalImage } from '@/store';
+  import Loader from './Loader.svelte';
 
   let intervalId: number;
   let processingImage = true;
@@ -36,33 +37,37 @@
 <div
   class="relative box-border flex h-[425px] items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-2 shadow-2xl"
 >
-  <two-up>
-    <img
-      src={$originalImage}
-      alt="Original uploaded by user"
-      class="aspect-video h-96 w-full object-contain"
-      height={300}
-      width={300}
-    />
-
-    {#if processingImage || !success}
+  {#if processingImage}
+    <Loader />
+  {:else}
+    <two-up>
       <img
         src={$originalImage}
-        alt="Original uploaded by user with filter applied"
-        class="aspect-video h-96 w-full object-contain blur-sm grayscale filter"
-        height={300}
-        width={300}
-      />
-    {:else}
-      <img
-        src={$modifiedImage}
-        alt="Without background uploaded by user"
+        alt="Original uploaded by user"
         class="aspect-video h-96 w-full object-contain"
         height={300}
         width={300}
       />
-    {/if}
-  </two-up>
+
+      {#if !success}
+        <img
+          src={$originalImage}
+          alt="Original uploaded by user with filter applied"
+          class="aspect-video h-96 w-full object-contain blur-sm grayscale filter"
+          height={300}
+          width={300}
+        />
+      {:else}
+        <img
+          src={$modifiedImage}
+          alt="Without background uploaded by user"
+          class="aspect-video h-96 w-full object-contain"
+          height={300}
+          width={300}
+        />
+      {/if}
+    </two-up>
+  {/if}
 
   {#if !processingImage && success}
     <div class="absolute right-0 top-0 flex flex-col p-2.5">
