@@ -35,7 +35,7 @@
           success = true;
           clearInterval(intervalId);
         };
-      }, 500);
+      }, 1000);
     }
   }
 </script>
@@ -59,7 +59,7 @@
         <img
           src={$originalImage}
           alt="Original uploaded by user with filter applied"
-          class="aspect-video h-96 w-full object-contain blur-sm grayscale filter"
+          class="aspect-video h-96 w-full object-contain blur-sm filter"
           height={300}
           width={300}
         />
